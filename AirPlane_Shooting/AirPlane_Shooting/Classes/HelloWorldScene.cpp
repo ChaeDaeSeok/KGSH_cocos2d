@@ -56,6 +56,12 @@ bool HelloWorld::init()
 void HelloWorld::update(float dt)
 {
 	pBackground->ScrollBG(dt);
+
+	for(int i = 0; i < 20; i++)
+	{
+		if(pHero->getColBulletVSMonster(pMonster[i]))
+			CreateEffect(pMonster[i]->getPosition());
+	}
 }
 
 void HelloWorld::CreateMonster(float dt)
@@ -71,6 +77,35 @@ void HelloWorld::CreateMonster(float dt)
 
 	//!< 0~20까지 몬스터를 생성합니다. type은 랜덤(0~2)
 	pMonster[CreateMonsterCount++]->Create(rand() % 3);
+}
+
+void HelloWorld::CreateEffect(CCPoint pt)
+{
+	 //< 모든그림이있는 스프라이트 큰 그림을먼저만든다.
+	CCSprite* pMan = CCSprite::create("효과이미지/dust.png");
+	pMan->setPosition(pt);
+	pMan->setScale(2.0f);
+
+	//< 애니메이션에 사용할 애니메이션 객체 생성
+	CCAnimation* pAnimation = CCAnimation::create();
+	pAnimation->addSpriteFrameWithFileName("효과이미지/dust.png");
+	pAnimation->addSpriteFrameWithFileName("효과이미지/dust_02.png");
+	pAnimation->addSpriteFrameWithFileName("효과이미지/dust_03.png");
+	pAnimation->addSpriteFrameWithFileName("효과이미지/explosion_01.png");
+
+	//< 애니메이션의 시간간격을 설정(몇초마다 스프라이트이미지가 교체될지)
+	pAnimation->setDelayPerUnit(0.1f);
+	pAnimation->setRestoreOriginalFrame(true);
+
+	//< 디스크립터 객체를가지고 애니메이션을만듬
+	CCAnimate* Animate1 = CCAnimate::create(pAnimation);
+	CCCallFuncND*	removeAction = CCCallFuncND::create(this, callfuncND_selector(CCNode::removeChild), Animate1);
+
+	CCFiniteTimeAction *action = CCSequence::create(Animate1, removeAction, NULL);
+
+	//< 스프라이트 애니메이션 실행
+	this->addChild(pMan, 2);
+	pMan->runAction(action);
 }
 
 /**

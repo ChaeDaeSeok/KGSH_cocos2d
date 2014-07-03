@@ -2,11 +2,12 @@
 #define __APPMACROS_H__
 
 #include "cocos2d.h"
+
+USING_NS_CC;
+
 #include "CHero.h"
 #include "CBackground.h"
 #include "CMonster.h"
-
-USING_NS_CC;
 
 /* For demonstrating using one design resolution to match different resources,
    or one resource to match different design resolutions.

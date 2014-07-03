@@ -60,6 +60,7 @@ void CMonster::Create(int type)
 	}
 	this->runAction(pAction);
 	m_pLayer->addChild(this, 2);
+	m_bIsDead = true;
 
 	scheduleUpdate();
 	m_fCreateTime = 0;	
@@ -71,7 +72,7 @@ void CMonster::update(float dt)
 	m_fCreateTime += dt;
 	if(m_fCreateTime >= 0.5f && pBullet->m_bIsDead == false)
 	{
-		pBullet->Create(getPosition(), 1.0f, ccp(0, -1024));
+		pBullet->Create(getPosition(), 0.5f, ccp(0, -1024));
 	}
 	else if(pBullet->m_bIsDead == true)
 	{

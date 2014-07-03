@@ -36,6 +36,8 @@ public:
 	void update(float dt);
 
 	void CreateMonster(float dt);
+
+	void CreateEffect(CCPoint pt);
 };
 
 #endif // __HELLOWORLD_SCENE_H__

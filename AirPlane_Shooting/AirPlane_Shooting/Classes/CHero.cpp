@@ -70,3 +70,23 @@ void CHero::Fire(float dt)
 		unschedule(schedule_selector(CHero::Fire));
 	}
 }
+
+bool CHero::getColBulletVSMonster(CMonster* pMonster)
+{
+	for(int i = 0; i < 20; i++)
+	{
+		if(pBullet[i]->m_bIsDead && pMonster->m_bIsDead)
+		{
+			if(pBullet[i]->boundingBox().intersectsRect(pMonster->boundingBox()))
+			{
+				pBullet[i]->m_bIsDead = false;
+				pMonster->m_bIsDead = false;
+
+				m_pLayer->removeChild(pBullet[i], true);
+				m_pLayer->removeChild(pMonster, true);
+				return true;
+			}
+		}
+	}
+	return false;
+}

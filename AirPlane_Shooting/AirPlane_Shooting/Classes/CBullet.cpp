@@ -70,7 +70,6 @@ void CBullet::update(float dt)
 	//!< 화면 위나 아래로 벗어나면은요 킥 하고 죽여버려요
 	if(getPositionY() <= 0 || getPositionY() >= 1024)
 	{
-		CCLog("%f", getPositionY());
 		m_bIsDead = false; 
 		m_pLayer->removeChild(this, true);
 

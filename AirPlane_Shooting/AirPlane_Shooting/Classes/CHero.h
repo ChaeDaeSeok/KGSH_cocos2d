@@ -8,6 +8,7 @@
 
 #include "cocos2d.h"
 #include "CBullet.h"
+#include "CMonster.h"
 USING_NS_CC;
 
 class CHero : public CCSprite
@@ -26,4 +27,6 @@ public:
 	~CHero();									//!< ¸¶Áö¸· Release
 
 	void Fire(float dt);
+	
+	bool getColBulletVSMonster(CMonster* pMonster);
 };
